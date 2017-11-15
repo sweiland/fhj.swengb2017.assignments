@@ -67,7 +67,7 @@ object FunctionalAssignment {
     * @param i parameter for which the factorial must be calculated
     * @return i!
     */
-  def fact(i: Int): Int = ???
+  def fact(i: Int): Int = if (i<1) 1 else fact(i-1)*i
 
   /**
     * compute the n'th fibonacci number
@@ -77,7 +77,11 @@ object FunctionalAssignment {
     *
     * https://en.wikipedia.org/wiki/Fibonacci_number
     */
-  def fib(n: Int): Int = ???
+  def fib(n: Int): Int = n match {
+    case `n` if (n<=0) => 0
+    case `n` if (n<=2) => 1
+    case _ => fib(n - 1) + fib(n - 2)
+  }
 
   /**
     * Implement a isSorted which checks whether an Array[A] is sorted according to a
@@ -86,15 +90,23 @@ object FunctionalAssignment {
     * Implementation hint: you always have to compare two consecutive elements of the array.
     * Elements which are equal are considered to be ordered.
     */
-  def isSorted[A](as: Array[A], gt: (A, A) => Boolean): Boolean = ???
-
-  /**
+  def isSorted[A](as: Array[A], gt: (A, A) => Boolean): Boolean = {
+    def test(i: Int): Boolean = {
+      if (i >= as.length - 1)
+        true
+      else if (gt(as(i), as(i + 1)))
+          test(i+1)
+      else false
+    }
+    test(0)
+  }
+    /**
     * Takes both lists and combines them, element per element.
     *
     * If one sequence is shorter than the other one, the function stops at the last element
     * of the shorter sequence.
     */
-  def genPairs[A, B](as: Seq[A], bs: Seq[B]): Seq[(A, B)] = ???
+  def genPairs[A, B](as: Seq[A], bs: Seq[B]): Seq[(A, B)] = as.zip(bs)
 
   // a simple definition of a linked list, we define our own list data structure
   sealed trait MyList[+A]
@@ -107,9 +119,15 @@ object FunctionalAssignment {
   // it also provides a convenience constructor in order to instantiate a MyList without hassle
   object MyList {
 
-    def sum(list: MyList[Int]): Int = ???
+    def sum(list: MyList[Int]): Int = list match {
+      case MyNil => 0
+      case Cons(h,t) => h + sum(t)
+    }
 
-    def product(list: MyList[Int]): Int = ???
+    def product(list: MyList[Int]): Int = list match {
+      case MyNil => 0
+      case Cons(h,t) => if (h==0) product(t) else h*product(t)
+    }
 
     def apply[A](as: A*): MyList[A] = {
       if (as.isEmpty) MyNil
