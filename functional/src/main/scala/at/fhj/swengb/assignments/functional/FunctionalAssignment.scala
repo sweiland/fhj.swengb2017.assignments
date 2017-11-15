@@ -9,12 +9,12 @@ object FunctionalAssignment {
   /**
     * A function which returns its parameters in a changed order. Look at the type signature.
     */
-  def flip[A, B](t: (A, B)): (B, A) = ???
+  def flip[A, B](t: (A, B)): (B, A) = (t._2,t._1)
 
   /**
     * given a Seq[A] and a function f : A => B, return a Seq[B]
     */
-  def unknown[A, B](as: Seq[A], fn: A => B): Seq[B] = ???
+  def unknown[A, B](as: Seq[A], fn: A => B): Seq[B] = as.map(fn)
 
   /**
     * Returns the absolute value of the parameter i.
@@ -22,7 +22,7 @@ object FunctionalAssignment {
     * @param i a value, either with a positive or a negative sign.
     * @return
     */
-  def abs(i: Int): Int = ???
+  def abs(i: Int): Int = if (i < 0) -1*i else i
 
 
   // Describe with your own words what this function does.
@@ -32,16 +32,20 @@ object FunctionalAssignment {
   // Afterwards, compare your new naming scheme with the original one.
   // What did you gain with your new names? What did you loose?
   //
-  /**
+  /** Function op takes a list of type A, and an accumulator value of type B.
+    * A function is then applied via foldLeft, meaning it is evaluated from the left.
     *
-    * @param as
-    * @param b
-    * @param fn
-    * @tparam A
-    * @tparam B
+    *
+    * @param startList the list
+    * @param accu the accumulator
+    * @param func a function
+    * @tparam tA typ A
+    * @tparam tB typ B
     * @return
+    *
+    * We gained readability now, but lost the short implementation.
     */
-  def op[A, B](as: Seq[A], b: B)(fn: (B, A) => B): B = as.foldLeft(b)(fn)
+  def op[tA, tB](startList: Seq[tA], accu: tB)(func: (tB, tA) => tB): tB = startList.foldLeft(accu)(func)
 
   /**
     * implement the summation of the given numbers parameter.
@@ -50,7 +54,7 @@ object FunctionalAssignment {
     * @param numbers
     * @return
     */
-  def sum(numbers: Seq[Int]): Int = ???
+  def sum(numbers: Seq[Int]): Int = op(numbers,0)((a:Int, b:Int) => a+b)
 
 
   /**
