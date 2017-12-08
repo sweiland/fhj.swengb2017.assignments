@@ -7,16 +7,9 @@
 | Hours
 | Description
 
-| 29.11.17
-| 1
-| Review of this and that and also thisthat
+| 8.12.2017
+| no nix
+| begin work on RpnCalculator.scala
 
-| 30.11.17
-| 5
-| implemented css
-
-| 11.07.17
-| 2
-| fixed bugs
 
 |===
