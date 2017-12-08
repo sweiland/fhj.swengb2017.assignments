@@ -36,15 +36,6 @@ object RpnCalculator {
   */
 case class RpnCalculator(stack: List[Op] = Nil) {
 
-  /**
-    * Pushes val's on the stack.
-    *
-    * If op is not a val, pop two numbers from the stack and apply the operation.
-    *
-    * @param op
-    * @return
-    */
-  def push(op: Seq[Op]): Try[RpnCalculator] = ???
 
   /**
     * By pushing Op on the stack, the Op is potentially executed. If it is a Val, the op instance is just put on the
@@ -56,18 +47,32 @@ case class RpnCalculator(stack: List[Op] = Nil) {
   def push(op: Op): Try[RpnCalculator] = op match {
     case value: Val => Try(RpnCalculator(stack :+ value))
     case operation: BinOp => {
-      Try(RpnCalculator())
+      def nextVal(calc: RpnCalculator): Val = {
+        val current: Op = calc.peek()
+        current match {
+          case value: Val => value
+          case _ => throw new NoSuchElementException()
+        }
+      }
+
+      val first: Val = nextVal(this)
+      var remainder: RpnCalculator = RpnCalculator(stack.tail)
+      val second = nextVal(this)
+      remainder = remainder.pop()._2
+      val result: Val = operation.eval(first, second)
+      remainder.push(result)
     }
   }
 
   /**
-    * Returns an tuple of Op and a RevPolCal instance with the remainder of the stack.
+    * Pushes val's on the stack.
     *
+    * If op is not a val, pop two numbers from the stack and apply the operation.
+    *
+    * @param op
     * @return
     */
-  def pop(): (Op, RpnCalculator) = {
-    (stack.head, RpnCalculator(stack.tail))
-  }
+  def push(op: Seq[Op]): Try[RpnCalculator] = op.foldLeft(Try(RpnCalculator()))((a, e) => a.get.push(e)) //op.map(elem => push(elem))
 
   /**
     * If stack is nonempty, returns the top of the stack. If it is empty, this function throws a NoSuchElementException.
@@ -81,6 +86,15 @@ case class RpnCalculator(stack: List[Op] = Nil) {
     else {
       stack.head
     }
+
+  /**
+    * Returns an tuple of Op and a RevPolCal instance with the remainder of the stack.
+    *
+    * @return
+    */
+  def pop(): (Op, RpnCalculator) = {
+    (stack.head, RpnCalculator(stack.tail))
+  }
 
   /**
     * returns the size of the stack.
