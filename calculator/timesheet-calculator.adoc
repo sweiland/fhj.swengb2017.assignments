@@ -8,7 +8,7 @@
 | Description
 
 | 8.12.2017
-| no nix
+| 5
 | begin work on RpnCalculator.scala
 
 

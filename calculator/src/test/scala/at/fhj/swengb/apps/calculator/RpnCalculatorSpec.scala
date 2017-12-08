@@ -1,5 +1,7 @@
 package at.fhj.swengb.apps.calculator
 
+import java.util.NoSuchElementException
+
 import org.scalatest.WordSpecLike
 
 import scala.util.{Failure, Success, Try}

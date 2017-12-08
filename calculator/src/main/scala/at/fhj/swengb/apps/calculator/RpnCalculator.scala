@@ -51,13 +51,13 @@ case class RpnCalculator(stack: List[Op] = Nil) {
         val current: Op = calc.peek()
         current match {
           case value: Val => value
-          case _ => throw new NoSuchElementException()
+          case _ => throw new NoSuchElementException
         }
       }
 
       val first: Val = nextVal(this)
       var remainder: RpnCalculator = RpnCalculator(stack.tail)
-      val second = nextVal(this)
+      val second = nextVal(remainder)
       remainder = remainder.pop()._2
       val result: Val = operation.eval(first, second)
       remainder.push(result)
@@ -88,7 +88,7 @@ case class RpnCalculator(stack: List[Op] = Nil) {
     }
 
   /**
-    * Returns an tuple of Op and a RevPolCal instance with the remainder of the stack.
+    * Returns a tuple of Op and a RevPolCal instance with the remainder of the stack.
     *
     * @return
     */
