@@ -51,7 +51,10 @@ case object Mul extends BinOp {
   * a Val(Double.NaN) shoudl be returned.
   */
 case object Div extends BinOp {
-  override def eval(left: Val, right: Val): Val = ???
+
+  override def eval(left: Val, right: Val): Val = if (left == 0 || right == 0) throw new notANumberException() else Val(left.value / right.value)
+
+  case class notANumberException(private val message: String = "Some crazy shit is going on.", private val cause: Throwable = None.orNull) extends Exception(message, cause)
 }
 
 /**
