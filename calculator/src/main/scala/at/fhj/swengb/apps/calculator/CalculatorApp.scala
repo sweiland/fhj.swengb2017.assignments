@@ -4,8 +4,9 @@ import java.net.URL
 import java.util.ResourceBundle
 import javafx.application.Application
 import javafx.beans.property.{ObjectProperty, SimpleObjectProperty}
+import javafx.event.ActionEvent
 import javafx.fxml.{FXML, FXMLLoader, Initializable}
-import javafx.scene.control.TextField
+import javafx.scene.control.{Label, TextField}
 import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
 
@@ -30,7 +31,7 @@ class CalculatorFX extends javafx.application.Application {
 
   override def start(stage: Stage): Unit =
     try {
-      stage.setTitle("Calculator")
+      stage.setTitle("Some crazy calculations are going on")
       setSkin(stage, fxml, css)
       stage.show()
       stage.setMinWidth(stage.getWidth)
@@ -57,6 +58,11 @@ class CalculatorFxController extends Initializable {
   def setCalculator(rpnCalculator : RpnCalculator) : Unit = calculatorProperty.set(rpnCalculator)
 
   @FXML var numberTextField : TextField = _
+
+  @FXML private var label: Label = _
+  @FXML private def insertText (event: ActionEvent) = {
+    label.setText("1")
+  }
 
   override def initialize(location: URL, resources: ResourceBundle) = {
 
