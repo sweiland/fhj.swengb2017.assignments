@@ -6,7 +6,7 @@ import javafx.application.Application
 import javafx.beans.property.{ObjectProperty, SimpleObjectProperty}
 import javafx.event.ActionEvent
 import javafx.fxml.{FXML, FXMLLoader, Initializable}
-import javafx.scene.control.{Label, TextField}
+import javafx.scene.control.TextField
 import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
 
@@ -53,6 +53,8 @@ class CalculatorFxController extends Initializable {
 
   val calculatorProperty: ObjectProperty[RpnCalculator] = new SimpleObjectProperty[RpnCalculator](RpnCalculator())
   @FXML var num1: TextField = _
+  @FXML var num2: TextField = _
+  @FXML var num3: TextField = _
 
   override def initialize(location: URL, resources: ResourceBundle) = {
 
@@ -71,7 +73,28 @@ class CalculatorFxController extends Initializable {
   def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
 
   @FXML private def insertText(event: ActionEvent): Unit = {
-    num1.setText("1")
+    val button: String = event.getSource.asInstanceOf[javafx.scene.control.Button].toString
+    button match {
+      case "Button[id=bt1, styleClass=button]'1'" => insertThis("1")
+      case "Button[id=bt2, styleClass=button]'2'" => insertThis("2")
+      case "Button[id=bt3, styleClass=button]'3'" => insertThis("3")
+      case "Button[id=bt4, styleClass=button]'4'" => insertThis("4")
+      case "Button[id=bt5, styleClass=button]'5'" => insertThis("5")
+      case "Button[id=bt6, styleClass=button]'6'" => insertThis("6")
+      case "Button[id=bt7, styleClass=button]'7'" => insertThis("7")
+      case "Button[id=bt8, styleClass=button]'8'" => insertThis("8")
+      case "Button[id=bt9, styleClass=button]'9'" => insertThis("9")
+      case "Button[id=bt0, styleClass=button]'0'" => insertThis("0")
+      case "Button[id=enter, styleClass=button]'='" => println("fertig")
+      case _ =>
+    }
+    println(button)
+
+    def insertThis(number: String): Unit = {
+      if (num1.getText.isEmpty) num1.setText(number)
+      else num1.setText(num1.getText + number)
+    }
+    def moveNum()
   }
 
 
