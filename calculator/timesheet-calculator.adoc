@@ -9,7 +9,10 @@
 
 | 8.12.2017
 | 7.5
-| begin work on RpnCalculator.scala
+| begin work on RpnCalculator.scala, CalculatorApp.scala, and calculator.fxml
 
+| 9.12.2017
+| 1
+| continue work on CalculatorApp.scala and calculator.fxml
 
 |===

@@ -10,8 +10,8 @@ import javafx.scene.control.{Label, TextField}
 import javafx.scene.{Parent, Scene}
 import javafx.stage.Stage
 
-import scala.util.{Failure, Success}
 import scala.util.control.NonFatal
+import scala.util.{Failure, Success}
 
 object CalculatorApp {
 
@@ -24,10 +24,6 @@ class CalculatorFX extends javafx.application.Application {
 
   val fxml = "/at/fhj/swengb/apps/calculator/calculator.fxml"
   val css = "/at/fhj/swengb/apps/calculator/calculator.css"
-
-  def mkFxmlLoader(fxml: String): FXMLLoader = {
-    new FXMLLoader(getClass.getResource(fxml))
-  }
 
   override def start(stage: Stage): Unit =
     try {
@@ -47,22 +43,17 @@ class CalculatorFX extends javafx.application.Application {
     stage.getScene.getStylesheets.add(css)
   }
 
+  def mkFxmlLoader(fxml: String): FXMLLoader = {
+    new FXMLLoader(getClass.getResource(fxml))
+  }
+
 }
 
 class CalculatorFxController extends Initializable {
 
   val calculatorProperty: ObjectProperty[RpnCalculator] = new SimpleObjectProperty[RpnCalculator](RpnCalculator())
-
-  def getCalculator() : RpnCalculator = calculatorProperty.get()
-
-  def setCalculator(rpnCalculator : RpnCalculator) : Unit = calculatorProperty.set(rpnCalculator)
-
-  @FXML var numberTextField : TextField = _
-
+  @FXML var numberTextField: TextField = _
   @FXML private var label: Label = _
-  @FXML private def insertText (event: ActionEvent) = {
-    label.setText("1")
-  }
 
   override def initialize(location: URL, resources: ResourceBundle) = {
 
@@ -74,6 +65,14 @@ class CalculatorFxController extends Initializable {
       case Failure(e) => e.getMessage
     }
     getCalculator().stack foreach println
+  }
+
+  def getCalculator(): RpnCalculator = calculatorProperty.get()
+
+  def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
+
+  @FXML private def insertText(event: ActionEvent) = {
+    label.setText("1")
   }
 
 
