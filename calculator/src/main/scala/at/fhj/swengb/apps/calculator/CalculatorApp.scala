@@ -60,20 +60,8 @@ class CalculatorFxController extends Initializable {
 
   }
 
-  def sgn(): Unit = {
-    getCalculator().push(Op(num1.getText)) match {
-      case Success(c) => setCalculator(c)
-      case Failure(e) => e.getMessage
-    }
-    getCalculator().stack foreach println
-  }
-
-  def getCalculator(): RpnCalculator = calculatorProperty.get()
-
-  def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
-
-  @FXML private def insertText(event: ActionEvent): Unit = {
-    val button: String = event.getSource.asInstanceOf[javafx.scene.control.Button].toString
+  @FXML private def insertText(click: ActionEvent): Unit = {
+    val button: String = click.getSource.asInstanceOf[javafx.scene.control.Button].toString
     button match {
       case "Button[id=bt1, styleClass=button]'1'" => insertThis("1")
       case "Button[id=bt2, styleClass=button]'2'" => insertThis("2")
@@ -85,17 +73,62 @@ class CalculatorFxController extends Initializable {
       case "Button[id=bt8, styleClass=button]'8'" => insertThis("8")
       case "Button[id=bt9, styleClass=button]'9'" => insertThis("9")
       case "Button[id=bt0, styleClass=button]'0'" => insertThis("0")
-      case "Button[id=enter, styleClass=button]'='" => println("fertig")
-      case _ =>
+      case "Button[id=enter, styleClass=button]'='" => onEnter
+      case "Button[id=point, styleClass=button]'.'" => comma
+      case "Button[id=plus, styleClass=button]'+'" => insertThis("Add")
+      case "Button[id=minus, styleClass=button]'−'" => insertThis("Sub")
+      case "Button[id=times, styleClass=button]'×'" => insertThis("Mul")
+      case "Button[id=divided, styleClass=button]'÷'" => insertThis("Div")
+      case "Button[id=clear, styleClass=button]'C'" =>
+      case _ => //Fallback – If this happens, some crazy shit is going on…
     }
     println(button)
 
     def insertThis(number: String): Unit = {
-      if (num1.getText.isEmpty) num1.setText(number)
-      else num1.setText(num1.getText + number)
+      number match {
+        case "Add" => getCalculator().push(Op("+"))
+        case "Sub" => getCalculator().push(Op("-"))
+        case "Mul" => getCalculator().push(Op("*"))
+        case "Div" => getCalculator().push(Op("/"))
+        case _ =>
+          if (num1.getText.isEmpty) num1.setText(number)
+          else num1.setText(num1.getText + number)
+      }
     }
-    def moveNum()
+
+    def comma: Unit = if (num1.getText.isEmpty) insertThis("0.") else if (num1.getText.count(_ == '.') < 1) insertThis(".")
+
+    def onEnter: Unit = {
+      if (!num1.getText.isEmpty) {
+        sgn()
+        if (true)
+          if (num2.getText.isEmpty) {
+            num2.setText(num1.getText)
+            num1.setText("")
+          }
+          else {
+            num3.setText(num2.getText)
+            num2.setText(num1.getText)
+            num1.setText("")
+          }
+      }
+      else {
+        insertThis("0")
+      }
+    }
   }
+
+  def sgn(): Unit = {
+    getCalculator().push(Op(num1.getText)) match {
+      case Success(c) => setCalculator(c)
+      case Failure(e) => e.getMessage
+    }
+    getCalculator().stack foreach println
+  }
+
+  def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
+
+  def getCalculator(): RpnCalculator = calculatorProperty.get()
 
 
 }
