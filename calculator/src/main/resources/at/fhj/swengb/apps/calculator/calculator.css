@@ -1,5 +1,5 @@
 GridPane {
-    -fx-font-size: 30;
+    -fx-font-size: 20;
 }
 
 #calculator {
@@ -12,4 +12,8 @@ Button {
 
 Button:hover {
     -fx-background-color: orange;
+}
+
+TextField {
+    -fx-font-size: 32;
 }

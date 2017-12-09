@@ -52,15 +52,14 @@ class CalculatorFX extends javafx.application.Application {
 class CalculatorFxController extends Initializable {
 
   val calculatorProperty: ObjectProperty[RpnCalculator] = new SimpleObjectProperty[RpnCalculator](RpnCalculator())
-  @FXML var numberTextField: TextField = _
-  @FXML private var label: Label = _
+  @FXML var num1: TextField = _
 
   override def initialize(location: URL, resources: ResourceBundle) = {
 
   }
 
   def sgn(): Unit = {
-    getCalculator().push(Op(numberTextField.getText)) match {
+    getCalculator().push(Op(num1.getText)) match {
       case Success(c) => setCalculator(c)
       case Failure(e) => e.getMessage
     }
@@ -71,8 +70,8 @@ class CalculatorFxController extends Initializable {
 
   def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
 
-  @FXML private def insertText(event: ActionEvent) = {
-    label.setText("1")
+  @FXML private def insertText(event: ActionEvent): Unit = {
+    num1.setText("1")
   }
 
 
