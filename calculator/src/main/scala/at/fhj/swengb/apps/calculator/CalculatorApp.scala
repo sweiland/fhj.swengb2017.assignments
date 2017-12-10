@@ -84,6 +84,7 @@ class CalculatorFxController extends Initializable {
       case "Button[id=plusminus, styleClass=button]'±'" => changeSign
       case _ => //Fallback – If this happens, some crazy shit is going on…
     }
+
     def insertThis(number: String): Unit = {
       number match {
         case "Add" => getCalculator().push(Op("+")) match {

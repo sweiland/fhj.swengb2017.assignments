@@ -17,5 +17,5 @@
 
 | 10.12.2017
 |1.5
-| continue work on CalculatorApp.scala
+| continue work on CalculatorApp.scala, fix tests and clean up
 |===
