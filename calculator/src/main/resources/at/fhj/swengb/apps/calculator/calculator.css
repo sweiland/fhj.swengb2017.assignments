@@ -2,12 +2,16 @@ GridPane {
     -fx-font-size: 20;
 }
 
-#calculator {
-    -fx-background-color: lightgray;
-}
-
 Button {
     -fx-background-color: darkorange;
+    -fx-border-style: dotted;
+    -fx-border-color: darkgray;
+}
+
+TextField {
+    -fx-background-color: lightgray;
+    -fx-border-color: darkgray;
+    -fx-border-style: dotted;
 }
 
 Button:hover {

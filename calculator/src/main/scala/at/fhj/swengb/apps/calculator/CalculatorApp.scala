@@ -55,6 +55,7 @@ class CalculatorFxController extends Initializable {
   @FXML var num1: TextField = _
   @FXML var num2: TextField = _
   @FXML var num3: TextField = _
+  var ca: Boolean = false
 
   override def initialize(location: URL, resources: ResourceBundle) = {
 
@@ -83,25 +84,27 @@ class CalculatorFxController extends Initializable {
       case "Button[id=plusminus, styleClass=button]'±'" => changeSign
       case _ => //Fallback – If this happens, some crazy shit is going on…
     }
-    println(button)
-
     def insertThis(number: String): Unit = {
       number match {
         case "Add" => getCalculator().push(Op("+")) match {
           case Success(c) => setCalculator(c)
             num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+            num3.setText("")
         }
         case "Sub" => getCalculator().push(Op("-")) match {
           case Success(c) => setCalculator(c)
             num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+            num3.setText("")
         }
         case "Mul" => getCalculator().push(Op("*")) match {
           case Success(c) => setCalculator(c)
             num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+            num3.setText("")
         }
         case "Div" => getCalculator().push(Op("/")) match {
           case Success(c) => setCalculator(c)
             num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+            num3.setText("")
         }
         case _ =>
           if (num1.getText.isEmpty) num1.setText(number)
@@ -136,7 +139,7 @@ class CalculatorFxController extends Initializable {
       case Success(c) => setCalculator(c)
       case Failure(e) => e.getMessage
     }
-    getCalculator().stack foreach println
+    //getCalculator().stack foreach println
   }
 
   def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
@@ -144,12 +147,20 @@ class CalculatorFxController extends Initializable {
   def getCalculator(): RpnCalculator = calculatorProperty.get()
 
   def clear: Unit = {
-    num1.setText("")
-    num2.setText("")
-    num3.setText("")
+    if (ca) {
+      setCalculator(RpnCalculator())
+      num1.setText("")
+      num2.setText("")
+      num3.setText("")
+      ca = false
+    }
+    else {
+      num1.setText("0")
+      ca = true
+    }
   }
 
-  def changeSign = {
+  def changeSign: Unit = {
     if (!num1.getText.isEmpty) {
       if (num1.getText.head.equals('-'))
         num1.setText(num1.getText.tail)
