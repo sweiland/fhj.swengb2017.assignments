@@ -79,17 +79,30 @@ class CalculatorFxController extends Initializable {
       case "Button[id=minus, styleClass=button]'−'" => insertThis("Sub")
       case "Button[id=times, styleClass=button]'×'" => insertThis("Mul")
       case "Button[id=divided, styleClass=button]'÷'" => insertThis("Div")
-      case "Button[id=clear, styleClass=button]'C'" =>
+      case "Button[id=clear, styleClass=button]'C'" => clear
+      case "Button[id=plusminus, styleClass=button]'±'" => changeSign
       case _ => //Fallback – If this happens, some crazy shit is going on…
     }
     println(button)
 
     def insertThis(number: String): Unit = {
       number match {
-        case "Add" => getCalculator().push(Op("+"))
-        case "Sub" => getCalculator().push(Op("-"))
-        case "Mul" => getCalculator().push(Op("*"))
-        case "Div" => getCalculator().push(Op("/"))
+        case "Add" => getCalculator().push(Op("+")) match {
+          case Success(c) => setCalculator(c)
+            num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+        }
+        case "Sub" => getCalculator().push(Op("-")) match {
+          case Success(c) => setCalculator(c)
+            num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+        }
+        case "Mul" => getCalculator().push(Op("*")) match {
+          case Success(c) => setCalculator(c)
+            num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+        }
+        case "Div" => getCalculator().push(Op("/")) match {
+          case Success(c) => setCalculator(c)
+            num2.setText(getCalculator().stack.last match { case v: Val => v.value.toString })
+        }
         case _ =>
           if (num1.getText.isEmpty) num1.setText(number)
           else num1.setText(num1.getText + number)
@@ -130,5 +143,19 @@ class CalculatorFxController extends Initializable {
 
   def getCalculator(): RpnCalculator = calculatorProperty.get()
 
+  def clear: Unit = {
+    num1.setText("")
+    num2.setText("")
+    num3.setText("")
+  }
+
+  def changeSign = {
+    if (!num1.getText.isEmpty) {
+      if (num1.getText.head.equals('-'))
+        num1.setText(num1.getText.tail)
+      else num1.setText('-' + num1.getText)
+    }
+    else num1.setText("-")
+  }
 
 }
