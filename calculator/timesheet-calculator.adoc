@@ -9,7 +9,7 @@
 
 | 8.12.2017
 | 7.5
-| begin work on RpnCalculator.scala, CalculatorApp.scala, and calculator.fxml
+| begin work on RpnCalculator.scala, CalculatorApp.scala, and calculator.fxml together with Qerimi & Fernbach
 
 | 9.12.2017
 | 7
