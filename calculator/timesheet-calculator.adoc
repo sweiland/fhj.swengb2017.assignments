@@ -9,13 +9,17 @@
 
 | 8.12.2017
 | 7.5
-| begin work on RpnCalculator.scala, CalculatorApp.scala, and calculator.fxml
+| begin work on RpnCalculator.scala, CalculatorApp.scala, and calculator.fxml together with Qerimi & Fernbach
 
 | 9.12.2017
 | 7
 | continue work on CalculatorApp.scala and calculator.fxml
 
 | 10.12.2017
-|1.5
+| 1.5
 | continue work on CalculatorApp.scala, fix tests and clean up
+
+| 11.12.2017
+| 5
+| talk about implementation with Qerimi & Fernbach
 |===

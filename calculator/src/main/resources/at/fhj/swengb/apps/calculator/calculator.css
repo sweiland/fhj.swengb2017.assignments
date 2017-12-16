@@ -1,19 +1,29 @@
 GridPane {
     -fx-font-size: 20;
+    -fx-text-alignment: center;
 }
 
 Button {
-    -fx-background-color: darkorange;
-    -fx-border-style: dotted;
-    -fx-border-color: darkgray;
+    -fx-background-color: white;
+    -fx-border-style: solid;
+    -fx-border-color: lightgray;
 }
 
 TextField {
-    -fx-background-color: lightgray;
-    -fx-border-color: darkgray;
-    -fx-border-style: dotted;
+    -fx-background-color: white;
+    -fx-border-color: lightgray;
+    -fx-border-style: solid;
 }
 
 Button:hover {
-    -fx-background-color: orange;
+    -fx-background-color: lightgray;
 }
+
+#enter {
+    -fx-background-color: green;
+}
+
+#enter:hover {
+    -fx-background-color: lightgreen;
+}
+

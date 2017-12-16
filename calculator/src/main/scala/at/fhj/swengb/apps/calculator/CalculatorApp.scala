@@ -57,7 +57,7 @@ class CalculatorFxController extends Initializable {
   @FXML var num3: TextField = _
   var ca: Boolean = false
 
-  override def initialize(location: URL, resources: ResourceBundle) = {
+  override def initialize(location: URL, resources: ResourceBundle): Unit = {
 
   }
 
@@ -82,7 +82,7 @@ class CalculatorFxController extends Initializable {
       case "Button[id=divided, styleClass=button]'÷'" => insertThis("Div")
       case "Button[id=clear, styleClass=button]'C'" => clear
       case "Button[id=plusminus, styleClass=button]'±'" => changeSign
-      case _ => //Fallback – If this happens, some crazy shit is going on…
+      case _ => //Fallback – If this happens, some crazy shit is going on… 😉
     }
 
     def insertThis(number: String): Unit = {
@@ -113,9 +113,9 @@ class CalculatorFxController extends Initializable {
       }
     }
 
-    def comma: Unit = if (num1.getText.isEmpty) insertThis("0.") else if (num1.getText.count(_ == '.') < 1) insertThis(".")
+    def comma(): Unit = if (num1.getText.isEmpty) insertThis("0.") else if (num1.getText.count(_ == '.') < 1) insertThis(".")
 
-    def onEnter: Unit = {
+    def onEnter(): Unit = {
       if (!num1.getText.isEmpty) {
         sgn()
         if (true)
@@ -140,14 +140,11 @@ class CalculatorFxController extends Initializable {
       case Success(c) => setCalculator(c)
       case Failure(e) => e.getMessage
     }
-    //getCalculator().stack foreach println
   }
-
-  def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
 
   def getCalculator(): RpnCalculator = calculatorProperty.get()
 
-  def clear: Unit = {
+  def clear(): Unit = {
     if (ca) {
       setCalculator(RpnCalculator())
       num1.setText("")
@@ -161,7 +158,9 @@ class CalculatorFxController extends Initializable {
     }
   }
 
-  def changeSign: Unit = {
+  def setCalculator(rpnCalculator: RpnCalculator): Unit = calculatorProperty.set(rpnCalculator)
+
+  def changeSign(): Unit = {
     if (!num1.getText.isEmpty) {
       if (num1.getText.head.equals('-'))
         num1.setText(num1.getText.tail)
