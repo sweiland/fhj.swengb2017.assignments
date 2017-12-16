@@ -9,22 +9,16 @@
 | Actual Hours
 | Description
 
-| Arneitzj15
+| qerimiar16
 | 29.11.17
 | 2
 | 1
 | Review of this and that
 
-| Arneitzj15
+| weilands16
 | 30.11.17
 | 1
 | 5
 | implemented css
-
-| Heiderst16
-| 11.07.17
-| 2
-| 2
-| fixed bugs
 
 |===
