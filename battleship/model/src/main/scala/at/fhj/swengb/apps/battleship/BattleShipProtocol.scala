@@ -1,6 +1,6 @@
 package at.fhj.swengb.apps.battleship
 
-import at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.Orientation
+import at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.{Orientation, Pos}
 import at.fhj.swengb.apps.battleship.model._
 
 import scala.collection.JavaConverters._
@@ -33,8 +33,8 @@ object BattleShipProtocol {
       .build()
   }
 
-  private def convert(p: BattlePos): BattleShipProtobuf.BattleShipGame.Pos = {
-    BattleShipProtobuf.BattleShipGame.Pos.newBuilder()
+  def convert(p: BattlePos): Pos = {
+    Pos.newBuilder()
       .setPosX(p.x)
       .setPosY(p.y)
       .build()
@@ -49,9 +49,9 @@ object BattleShipProtocol {
     game
   }
 
-  private def convert(p: BattleShipProtobuf.BattleShipGame.Pos): BattlePos = BattlePos(p.getPosX, p.getPosY)
+  def convert(p: Pos): BattlePos = BattlePos(p.getPosX, p.getPosY)
 
-  private def convert(f: BattleShipProtobuf.BattleShipGame.Vessel): Vessel = {
+  def convert(f: BattleShipProtobuf.BattleShipGame.Vessel): Vessel = {
     val name = NonEmptyString(f.getName)
     val orient: Direction = f.getDirection match {
       case Orientation.Horizontal => Horizontal
