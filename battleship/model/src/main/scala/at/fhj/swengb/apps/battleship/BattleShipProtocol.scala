@@ -1,7 +1,7 @@
 package at.fhj.swengb.apps.battleship
 
 import at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.Orientation
-import at.fhj.swengb.apps.battleship.model.{BattleShipGame, Horizontal, Vertical, Vessel}
+import at.fhj.swengb.apps.battleship.model._
 
 import scala.collection.JavaConverters._
 
@@ -12,10 +12,11 @@ object BattleShipProtocol {
       .setHeight(g.battleField.height)
       .setWidth(g.battleField.width)
       .addAllVessel(g.battleField.fleet.vessels.map(convert).asJava)
+      .addAllAlreadyClicked(g.clickedPos.map(convert).asJava)
       .build()
   }
 
-  def convert(v: Vessel): BattleShipProtobuf.BattleShipGame.Vessel = {
+  private def convert(v: Vessel): BattleShipProtobuf.BattleShipGame.Vessel = {
     BattleShipProtobuf.BattleShipGame.Vessel.newBuilder()
       .setName(v.name.value)
       .setVesselSize(v.size)
@@ -32,6 +33,29 @@ object BattleShipProtocol {
       .build()
   }
 
-  def convert(g: BattleShipProtobuf.BattleShipGame): BattleShipGame = ???
+  private def convert(p: BattlePos): BattleShipProtobuf.BattleShipGame.Pos = {
+    BattleShipProtobuf.BattleShipGame.Pos.newBuilder()
+      .setPosX(p.x)
+      .setPosY(p.y)
+      .build()
+  }
+
+  def convert(g: BattleShipProtobuf.BattleShipGame): BattleShipGame = {
+    val fleet = Fleet(g.getVesselList.asScala.map(convert).toSet)
+    val battleField = BattleField(g.getWidth, g.getHeight, fleet)
+    val alreadyClicked = g.getAlreadyClickedList.asScala.map(convert)
+    val game = BattleShipGame(battleField, (e => e.toDouble), (e => e.toDouble), (e => println(e)))
+    game.clickedPos = alreadyClicked
+    game
+  }
+
+  private def convert(p: BattleShipProtobuf.BattleShipGame.Pos): BattlePos = BattlePos(p.getPosX, p.getPosY)
+
+  private def convert(f: BattleShipProtobuf.BattleShipGame.Vessel): Vessel = {
+    Vessel(f.getName.asInstanceOf[NonEmptyString],
+      f.getPos.asInstanceOf[BattlePos],
+      f.getDirection.asInstanceOf[Direction],
+      f.getVesselSize)
+  }
 
 }

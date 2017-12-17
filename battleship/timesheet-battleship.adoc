@@ -19,6 +19,6 @@
 | 17.12.2017
 | 7
 | 10
-| begin work on .proto-file, BattleShipProtocol.
+| begin work on .proto-file, BattleShipProtocol, and tests (but didn't manage to implement the auto-generated tests)
 
 |===

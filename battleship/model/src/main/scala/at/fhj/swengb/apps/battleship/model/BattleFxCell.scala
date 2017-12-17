@@ -14,7 +14,8 @@ case class BattleFxCell(pos: BattlePos
                         , log: String => Unit
                         , someVessel: Option[Vessel] = None
                         , fn: (Vessel, BattlePos) => Unit
-                        ) extends Rectangle(width, height) {
+                        , clickedPos: BattlePos => Unit
+                       ) extends Rectangle(width, height) {
 
   def init(): Unit = {
     if (someVessel.isDefined) {
@@ -25,6 +26,7 @@ case class BattleFxCell(pos: BattlePos
   }
 
   setOnMouseClicked(e => {
+    clickedPos(pos)
     someVessel match {
       case None =>
         log(s"Missed. Just hit water.")

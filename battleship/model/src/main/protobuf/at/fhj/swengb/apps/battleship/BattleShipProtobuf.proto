@@ -24,5 +24,6 @@ message BattleShipGame {
     repeated Vessel vessel = 1;
     int32 width = 2;
     int32 height = 3;
+    repeated Pos alreadyClicked = 4;
 }
 
