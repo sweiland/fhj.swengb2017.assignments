@@ -11,19 +11,18 @@ message BattleShipGame {
         int32 PosX = 1;
         int32 PosY = 2;
     }
-    repeated Pos pos = 1;
-    enum orientation {
+    enum Orientation {
         Horizontal = 0;
         Vertical = 1;
     }
     message Vessel {
         string name = 1;
         int32 VesselSize = 2;
-        orientation Orient = 3;
+        Orientation direction = 3;
         Pos pos = 4;
     }
-    repeated Vessel vessel = 2;
-    int32 width = 4;
-    int32 height = 5;
+    repeated Vessel vessel = 1;
+    int32 width = 2;
+    int32 height = 3;
 }
 
