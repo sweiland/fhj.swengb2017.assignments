@@ -26,16 +26,19 @@ case class BattleFxCell(pos: BattlePos
   }
 
   setOnMouseClicked(e => {
+    clickMouse
+  })
+
+  def clickMouse() = {
     clickedPos(pos)
     someVessel match {
       case None =>
         log(s"Missed. Just hit water.")
         setFill(Color.AQUAMARINE)
       case Some(v) =>
-        // log(s"Hit an enemy vessel!")
         fn(v, pos)
         setFill(Color.RED)
     }
-  })
+  }
 
 }

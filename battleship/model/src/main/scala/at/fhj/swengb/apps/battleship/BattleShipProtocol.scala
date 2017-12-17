@@ -52,10 +52,12 @@ object BattleShipProtocol {
   private def convert(p: BattleShipProtobuf.BattleShipGame.Pos): BattlePos = BattlePos(p.getPosX, p.getPosY)
 
   private def convert(f: BattleShipProtobuf.BattleShipGame.Vessel): Vessel = {
-    Vessel(f.getName.asInstanceOf[NonEmptyString],
-      f.getPos.asInstanceOf[BattlePos],
-      f.getDirection.asInstanceOf[Direction],
-      f.getVesselSize)
+    val name = NonEmptyString(f.getName)
+    val orient: Direction = f.getDirection match {
+      case Orientation.Horizontal => Horizontal
+      case Orientation.Vertical => Vertical
+    }
+    Vessel(name, convert(f.getPos), orient, f.getVesselSize)
   }
 
 }
