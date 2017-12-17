@@ -19,6 +19,6 @@
 | 17.12.2017
 | 7
 | 10
-| working on .proto-file, BattleShipProtocol, fxml, css, and tests (but didn't manage to implement the auto-generated tests)
+| working on .proto-file, BattleShipProtocol, fxml, css, and the slider
 
 |===
