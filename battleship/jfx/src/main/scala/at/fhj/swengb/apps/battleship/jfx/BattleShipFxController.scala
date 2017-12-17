@@ -13,7 +13,7 @@ import at.fhj.swengb.apps.battleship.model._
 
 class BattleShipFxController extends Initializable {
 
-  var g: BattleShipGame = null
+  var g: BattleShipGame = _
 
   @FXML private var battleGroundGridPane: GridPane = _
 
@@ -25,6 +25,10 @@ class BattleShipFxController extends Initializable {
 
   @FXML def newGame(): Unit = initGame()
 
+  @FXML def slidermovement(): Unit = {
+    println(slider.getValue)
+  }
+
   @FXML def loadGame(): Unit = {
     val inFile = at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.parseFrom(Files.newInputStream(Paths.get("./battleship.bin")))
     val loadGame: BattleShipGame = BattleShipProtocol.convert(inFile)
@@ -34,7 +38,7 @@ class BattleShipFxController extends Initializable {
   }
 
   @FXML def saveGame(): Unit = {
-    BattleShipProtocol.convert(g).writeTo(Files.newOutputStream((Paths.get("./battleship.bin"))))
+    BattleShipProtocol.convert(g).writeTo(Files.newOutputStream(Paths.get("./battleship.bin")))
     println("Saved to" + Paths.get("./battleship.bin"))
   }
 
@@ -45,8 +49,6 @@ class BattleShipFxController extends Initializable {
     init(game)
     appendLog("New game started.")
   }
-
-  def appendLog(message: String): Unit = log.appendText(message + "\n")
 
   /**
     * Create a new game.
@@ -60,10 +62,10 @@ class BattleShipFxController extends Initializable {
   def init(game: BattleShipGame): Unit = {
     g = game
     battleGroundGridPane.getChildren.clear()
-    for (c <- game.getCells) {
+    for (c <- game.getCells()) {
       battleGroundGridPane.add(c, c.pos.x, c.pos.y)
     }
-    game.getCells().foreach(c => c.init)
+    game.getCells().foreach(c => c.init())
   }
 
   private def createGame(): BattleShipGame = {
@@ -73,6 +75,8 @@ class BattleShipFxController extends Initializable {
 
     BattleShipGame(battleField, getCellWidth, getCellHeight, appendLog)
   }
+
+  def appendLog(message: String): Unit = log.appendText(message + "\n")
 
   private def getCellHeight(y: Int): Double = battleGroundGridPane.getRowConstraints.get(y).getPrefHeight
 

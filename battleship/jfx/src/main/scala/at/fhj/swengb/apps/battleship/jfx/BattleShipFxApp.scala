@@ -22,11 +22,11 @@ class BattleShipFxApp extends Application {
   val css = "/at/fhj/swengb/apps/battleship/jfx/battleship.css"
   val triedRoot = Try(FXMLLoader.load[Parent](getClass.getResource(fxml)))
 
-  override def start(stage: Stage) = {
+  override def start(stage: Stage): Unit = {
     triedRoot match {
       case Success(root) =>
         stage.setScene(new Scene(root))
-        stage.setTitle("Some crazy battleships are going on")
+        stage.setTitle("Some crazy battles are going on")
         setSkin(stage, fxml, css)
         stage.show()
       case Failure(e) => e.printStackTrace()

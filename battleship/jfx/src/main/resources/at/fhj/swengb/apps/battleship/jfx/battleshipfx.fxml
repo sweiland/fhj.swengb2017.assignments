@@ -11,22 +11,21 @@
 
     </right>
     <top>
-        <Label prefHeight="51.0" prefWidth="159.0" text="Battleships!" BorderPane.alignment="CENTER">
+        <Label prefHeight="51.0" prefWidth="159.0" text="Battleships!" textAlignment="CENTER"
+               BorderPane.alignment="CENTER">
             <font>
                 <Font size="27.0"/>
             </font>
         </Label>
     </top>
     <right>
-        <VBox fx:id="btns" prefHeight="392.0" prefWidth="138.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button id="button" fx:id="newgame" onAction="#newGame" prefHeight="27.0" prefWidth="142.0"
-                        text="New Game"/>
-                <Button id="button" fx:id="loadgame" onAction="#loadGame" prefHeight="27.0" prefWidth="142.0"
-                        text="Load Game"/>
-                <Button id="button" fx:id="savegame" onAction="#saveGame" prefHeight="27.0" prefWidth="142.0"
-                        text="Save Game"/>
-            </children>
+        <VBox prefHeight="392.0" prefWidth="138.0" BorderPane.alignment="CENTER">
+            <Button id="button" onAction="#newGame" prefHeight="38.0" prefWidth="138.0"
+                    text="New Game"/>
+            <Button id="button" onAction="#loadGame" prefHeight="38.0" prefWidth="138.0"
+                    text="Load Game"/>
+            <Button id="button" onAction="#saveGame" prefHeight="38.0" prefWidth="138.0"
+                    text="Save Game"/>
         </VBox>
     </right>
     <center>
@@ -58,9 +57,11 @@
         </GridPane>
     </center>
     <left>
-        <TextArea fx:id="log" prefHeight="489.0" prefWidth="128.0" BorderPane.alignment="CENTER"/>
+        <TextArea fx:id="log" editable="false" prefHeight="420.0" prefWidth="141.0" wrapText="true"
+                  BorderPane.alignment="CENTER"/>
     </left>
     <bottom>
-        <Slider fx:id="slider" prefHeight="69.0" prefWidth="752.0" BorderPane.alignment="CENTER"/>
+        <Slider fx:id="slider" minorTickCount="5" onMouseClicked="#slidermovement" prefHeight="69.0" prefWidth="752.0"
+                showTickLabels="true" showTickMarks="true" snapToTicks="true" BorderPane.alignment="CENTER"/>
     </bottom>
 </BorderPane>

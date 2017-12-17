@@ -1,6 +1,5 @@
 .idea/
 target/
-*.class
 *.log
-*.iml
 *Protobuf.java
+/battleship.bin

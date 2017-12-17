@@ -17,19 +17,13 @@ case class BattleFxCell(pos: BattlePos
                         , clickedPos: BattlePos => Unit
                        ) extends Rectangle(width, height) {
 
-  def init(): Unit = {
-    if (someVessel.isDefined) {
-      setFill(Color.YELLOWGREEN)
-    } else {
-      setFill(Color.BLUE)
-    }
-  }
+  def init(): Unit = setFill(Color.BLUE)
 
   setOnMouseClicked(e => {
     clickMouse()
   })
 
-  def clickMouse() = {
+  def clickMouse(): Unit = {
     clickedPos(pos)
     someVessel match {
       case None =>
@@ -37,7 +31,7 @@ case class BattleFxCell(pos: BattlePos
         setFill(Color.AQUAMARINE)
       case Some(v) =>
         fn(v, pos)
-        setFill(Color.RED)
+        setFill(Color.DARKORANGE)
     }
   }
 
