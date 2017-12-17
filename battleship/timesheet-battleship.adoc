@@ -9,16 +9,16 @@
 | Actual Hours
 | Description
 
-| qerimiar16
-| 29.11.17
-| 2
-| 1
-| Review of this and that
-
 | weilands16
-| 30.11.17
+| 16.12.2017
+| 0.5
 | 1
-| 5
-| implemented css
+| Setting everything up (protoc etc)
+
+| qerimirar16 & weilands16
+| 17.12.2017
+| 7
+| 10
+| begin work on .proto-file, BattleShipProtocol.
 
 |===
