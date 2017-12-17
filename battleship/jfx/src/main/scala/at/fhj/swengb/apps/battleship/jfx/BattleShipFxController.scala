@@ -19,16 +19,27 @@ class BattleShipFxController extends Initializable {
     */
   @FXML private var log: TextArea = _
 
-  @FXML
-  def newGame(): Unit = initGame()
+  @FXML def newGame(): Unit = initGame()
+
+  @FXML def loadGame(): Unit = ???
+
+  @FXML def saveGame(): Unit = ???
+
+  private def createGame(): BattleShipGame = {
+    val field = BattleField(10, 10, Fleet(FleetConfig.Standard))
+
+    val battleField: BattleField = BattleField.placeRandomly(field)
+
+    BattleShipGame(battleField, getCellWidth, getCellHeight, appendLog)
+  }
 
   override def initialize(url: URL, rb: ResourceBundle): Unit = initGame()
 
-  private def getCellHeight(y: Int): Double = battleGroundGridPane.getRowConstraints.get(y).getPrefHeight
-
-  private def getCellWidth(x: Int): Double = battleGroundGridPane.getColumnConstraints.get(x).getPrefWidth
-
-  def appendLog(message: String): Unit = log.appendText(message + "\n")
+  private def initGame(): Unit = {
+    val game: BattleShipGame = createGame()
+    init(game)
+    appendLog("New game started.")
+  }
 
   /**
     * Create a new game.
@@ -39,7 +50,7 @@ class BattleShipFxController extends Initializable {
     * - placing your ships at random on the battleground
     *
     */
-  def init(game : BattleShipGame) : Unit = {
+  def init(game: BattleShipGame): Unit = {
     battleGroundGridPane.getChildren.clear()
     for (c <- game.getCells) {
       battleGroundGridPane.add(c, c.pos.x, c.pos.y)
@@ -47,19 +58,10 @@ class BattleShipFxController extends Initializable {
     game.getCells().foreach(c => c.init)
   }
 
+  def appendLog(message: String): Unit = log.appendText(message + "\n")
 
-  private def initGame(): Unit = {
-    val game: BattleShipGame = createGame()
-    init(game)
-    appendLog("New game started.")
-  }
+  private def getCellHeight(y: Int): Double = battleGroundGridPane.getRowConstraints.get(y).getPrefHeight
 
-  private def createGame(): BattleShipGame = {
-    val field = BattleField(10, 10, Fleet(FleetConfig.Standard))
-
-    val battleField: BattleField = BattleField.placeRandomly(field)
-
-    BattleShipGame(battleField, getCellWidth, getCellHeight, appendLog)
-  }
+  private def getCellWidth(x: Int): Double = battleGroundGridPane.getColumnConstraints.get(x).getPrefWidth
 
 }
