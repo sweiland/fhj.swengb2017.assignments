@@ -4,7 +4,7 @@ import java.net.URL
 import java.nio.file.{Files, Paths}
 import java.util.ResourceBundle
 import javafx.fxml.{FXML, Initializable}
-import javafx.scene.control.TextArea
+import javafx.scene.control.{Slider, TextArea}
 import javafx.scene.layout.GridPane
 
 import at.fhj.swengb.apps.battleship.BattleShipProtocol
@@ -21,14 +21,9 @@ class BattleShipFxController extends Initializable {
     * A text area box to place the history of the game
     */
   @FXML private var log: TextArea = _
+  @FXML private var slider: Slider = _
 
   @FXML def newGame(): Unit = initGame()
-
-  private def initGame(): Unit = {
-    val game: BattleShipGame = createGame()
-    init(game)
-    appendLog("New game started.")
-  }
 
   @FXML def loadGame(): Unit = {
     val inFile = at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.parseFrom(Files.newInputStream(Paths.get("./battleship.bin")))
@@ -38,9 +33,18 @@ class BattleShipFxController extends Initializable {
     loadedGame.simulateClicks(loadGame.clickedPos)
   }
 
-  private def getCellHeight(y: Int): Double = battleGroundGridPane.getRowConstraints.get(y).getPrefHeight
+  @FXML def saveGame(): Unit = {
+    BattleShipProtocol.convert(g).writeTo(Files.newOutputStream((Paths.get("./battleship.bin"))))
+    println("Saved to" + Paths.get("./battleship.bin"))
+  }
 
-  private def getCellWidth(x: Int): Double = battleGroundGridPane.getColumnConstraints.get(x).getPrefWidth
+  override def initialize(url: URL, rb: ResourceBundle): Unit = initGame()
+
+  private def initGame(): Unit = {
+    val game: BattleShipGame = createGame()
+    init(game)
+    appendLog("New game started.")
+  }
 
   def appendLog(message: String): Unit = log.appendText(message + "\n")
 
@@ -62,13 +66,6 @@ class BattleShipFxController extends Initializable {
     game.getCells().foreach(c => c.init)
   }
 
-  @FXML def saveGame(): Unit = {
-    BattleShipProtocol.convert(g).writeTo(Files.newOutputStream((Paths.get("./battleship.bin"))))
-    println("Saved to" + Paths.get("./battleship.bin"))
-  }
-
-  override def initialize(url: URL, rb: ResourceBundle): Unit = initGame()
-
   private def createGame(): BattleShipGame = {
     val field = BattleField(10, 10, Fleet(FleetConfig.Standard))
 
@@ -76,5 +73,9 @@ class BattleShipFxController extends Initializable {
 
     BattleShipGame(battleField, getCellWidth, getCellHeight, appendLog)
   }
+
+  private def getCellHeight(y: Int): Double = battleGroundGridPane.getRowConstraints.get(y).getPrefHeight
+
+  private def getCellWidth(x: Int): Double = battleGroundGridPane.getColumnConstraints.get(x).getPrefWidth
 
 }

@@ -4,21 +4,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="540.0" prefWidth="752.0"
-            xmlns="http://javafx.com/javafx/8.0.152"
+            xmlns="http://javafx.com/javafx/8.0.141"
             fx:controller="at.fhj.swengb.apps.battleship.jfx.BattleShipFxController">
     <right>
 
 
     </right>
     <top>
-        <Label prefHeight="51.0" prefWidth="128.0" text="Battleship" BorderPane.alignment="CENTER">
+        <Label prefHeight="51.0" prefWidth="159.0" text="Battleships!" BorderPane.alignment="CENTER">
             <font>
                 <Font size="27.0"/>
             </font>
         </Label>
     </top>
     <right>
-        <VBox prefHeight="392.0" prefWidth="138.0" BorderPane.alignment="CENTER">
+        <VBox fx:id="btns" prefHeight="392.0" prefWidth="138.0" BorderPane.alignment="CENTER">
             <children>
                 <Button id="button" fx:id="newgame" onAction="#newGame" prefHeight="27.0" prefWidth="142.0"
                         text="New Game"/>
@@ -61,6 +61,6 @@
         <TextArea fx:id="log" prefHeight="489.0" prefWidth="128.0" BorderPane.alignment="CENTER"/>
     </left>
     <bottom>
-        <Slider prefHeight="69.0" prefWidth="752.0" BorderPane.alignment="CENTER"/>
+        <Slider fx:id="slider" prefHeight="69.0" prefWidth="752.0" BorderPane.alignment="CENTER"/>
     </bottom>
 </BorderPane>
