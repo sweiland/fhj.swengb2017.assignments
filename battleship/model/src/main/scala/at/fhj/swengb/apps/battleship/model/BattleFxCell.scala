@@ -26,7 +26,7 @@ case class BattleFxCell(pos: BattlePos
   }
 
   setOnMouseClicked(e => {
-    clickMouse
+    clickMouse()
   })
 
   def clickMouse() = {

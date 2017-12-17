@@ -35,7 +35,7 @@ class BattleShipFxController extends Initializable {
     val loadGame: BattleShipGame = BattleShipProtocol.convert(inFile)
     val loadedGame = BattleShipGame(loadGame.battleField, getCellWidth, getCellHeight, appendLog)
     init(loadedGame)
-    loadedGame.simulateClicks(loadedGame.clickedPos)
+    loadedGame.simulateClicks(loadGame.clickedPos)
   }
 
   private def getCellHeight(y: Int): Double = battleGroundGridPane.getRowConstraints.get(y).getPrefHeight

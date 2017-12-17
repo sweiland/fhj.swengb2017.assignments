@@ -12,8 +12,8 @@ message BattleShipGame {
         Vertical = 1;
     }
     message Pos {
-        int32 PosX = 1;
-        int32 PosY = 2;
+        string PosX = 1;
+        string PosY = 2;
     }
     message Vessel {
         string name = 1;

@@ -39,8 +39,7 @@ case class BattleShipGame(battleField: BattleField,
   def getCells(): Seq[BattleFxCell] = cells
 
   def simulateClicks(pos: Seq[BattlePos]): Unit = {
-    val toClick: Seq[BattleFxCell] =
-      cells.filter(c => pos.contains(c.pos))
+    val toClick: Seq[BattleFxCell] = cells.filter(c => pos.contains(c.pos))
     toClick.map(e => e.clickMouse())
 
   }

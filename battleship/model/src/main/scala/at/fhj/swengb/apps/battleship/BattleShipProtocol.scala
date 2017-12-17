@@ -25,9 +25,9 @@ object BattleShipProtocol {
         case Vertical => Orientation.Vertical
       })
       .setPos(
-        BattleShipProtobuf.BattleShipGame.Pos.newBuilder()
-          .setPosX(v.startPos.x)
-          .setPosY(v.startPos.y)
+        Pos.newBuilder()
+          .setPosX(v.startPos.x.toString)
+          .setPosY(v.startPos.y.toString)
           .build()
       )
       .build()
@@ -35,21 +35,19 @@ object BattleShipProtocol {
 
   def convert(p: BattlePos): Pos = {
     Pos.newBuilder()
-      .setPosX(p.x)
-      .setPosY(p.y)
+      .setPosX(p.x.toString)
+      .setPosY(p.y.toString)
       .build()
   }
 
   def convert(g: BattleShipProtobuf.BattleShipGame): BattleShipGame = {
     val fleet = Fleet(g.getVesselList.asScala.map(convert).toSet)
     val battleField = BattleField(g.getWidth, g.getHeight, fleet)
-    val alreadyClicked = g.getAlreadyClickedList.asScala.map(convert)
+    val alreadyClicked = g.getAlreadyClickedList.asScala.map(convert).toList
     val game = BattleShipGame(battleField, (e => e.toDouble), (e => e.toDouble), (e => println(e)))
     game.clickedPos = alreadyClicked
     game
   }
-
-  def convert(p: Pos): BattlePos = BattlePos(p.getPosX, p.getPosY)
 
   def convert(f: BattleShipProtobuf.BattleShipGame.Vessel): Vessel = {
     val name = NonEmptyString(f.getName)
@@ -59,5 +57,7 @@ object BattleShipProtocol {
     }
     Vessel(name, convert(f.getPos), orient, f.getVesselSize)
   }
+
+  def convert(p: Pos): BattlePos = BattlePos(p.getPosX.toInt, p.getPosY.toInt)
 
 }
