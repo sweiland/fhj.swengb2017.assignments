@@ -9,22 +9,16 @@
 | Actual Hours
 | Description
 
-| Arneitzj15
-| 29.11.17
-| 2
+| weilands16
+| 16.12.2017
+| 0.5
 | 1
-| Review of this and that
+| Setting everything up (protoc etc)
 
-| Arneitzj15
-| 30.11.17
-| 1
-| 5
-| implemented css
-
-| Heiderst16
-| 11.07.17
-| 2
-| 2
-| fixed bugs
+| qerimirar16 & weilands16
+| 17.12.2017
+| 7
+| 12.5
+| working on .proto-file, BattleShipProtocol, fxml, css, and the slider
 
 |===

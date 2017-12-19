@@ -2,12 +2,27 @@ syntax = "proto3";
 
 package at.fhj.swengb.apps.battleship;
 
-option java_package         = "at.fhj.swengb.apps.battleship";
+option java_package = "at.fhj.swengb.apps.battleship";
 option java_outer_classname = "BattleShipProtobuf";
 
 
 message BattleShipGame {
-
-    // TODO
-
+    enum Orientation {
+        Horizontal = 0;
+        Vertical = 1;
+    }
+    message Pos {
+        string PosX = 1;
+        string PosY = 2;
+    }
+    message Vessel {
+        string name = 1;
+        int32 VesselSize = 2;
+        Orientation direction = 3;
+        Pos pos = 4;
+    }
+    int32 width = 1;
+    int32 height = 2;
+    repeated Vessel vessel = 3;
+    repeated Pos alreadyClicked = 4;
 }

@@ -9,18 +9,6 @@ case class BattleShipGame(battleField: BattleField,
                           log: String => Unit) {
 
   /**
-    * remembers which vessel was hit at which position
-    * starts with the empty map, meaning that no vessel was hit yet.
-    *
-    **/
-  var hits: Map[Vessel, Set[BattlePos]] = Map()
-
-  /**
-    * contains all vessels which are destroyed
-    */
-  var sunkShips: Set[Vessel] = Set()
-
-  /**
     * We don't ever change cells, they should be initialized only once.
     */
   private val cells: Seq[BattleFxCell] = for {x <- 0 until battleField.width
@@ -31,11 +19,30 @@ case class BattleShipGame(battleField: BattleField,
       getCellHeight(y),
       log,
       battleField.fleet.findByPos(pos),
-      updateGameState)
+      updateGameState,
+      updateClickedPos)
   }
+  /**
+    * remembers which vessel was hit at which position
+    * starts with the empty map, meaning that no vessel was hit yet.
+    *
+    **/
+  var hits: Map[Vessel, Set[BattlePos]] = Map()
+  /**
+    * contains all vessels which are destroyed
+    */
+  var sunkShips: Set[Vessel] = Set()
+  var clickedPos: Seq[BattlePos] = Seq()
+
+  def updateClickedPos(pos: BattlePos): Unit = clickedPos = pos +: clickedPos
 
   def getCells(): Seq[BattleFxCell] = cells
 
+  def simulateClicks(pos: Seq[BattlePos]): Unit = {
+    val toClick: Seq[BattleFxCell] = cells.filter(c => pos.contains(c.pos))
+    toClick.map(e => e.clickMouse())
+
+  }
 
   def updateGameState(vessel: Vessel, pos: BattlePos): Unit = {
     log("Vessel " + vessel.name.value + " was hit at position " + pos)
@@ -68,7 +75,7 @@ case class BattleShipGame(battleField: BattleField,
         sunkShips = sunkShips + vessel
 
         if (battleField.fleet.vessels == sunkShips) {
-          log("G A M E   totally  O V E R")
+          log("G A M E  totally  O V E R")
         }
       }
 
