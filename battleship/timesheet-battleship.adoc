@@ -24,7 +24,7 @@
 | qerimiar16 & weilands16
 | 19.12.2017
 | 3
-| 
-| start implementing slider, think about design changes
+| 4
+| design changes, think about the slider
 
 |===
