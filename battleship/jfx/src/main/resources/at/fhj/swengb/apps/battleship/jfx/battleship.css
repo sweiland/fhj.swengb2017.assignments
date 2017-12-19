@@ -11,13 +11,18 @@ Button:hover {
 #battleGroundGridPane {
     -fx-background-image: url("background.jpg");
     -fx-effect: innershadow(gaussian, #030303, 5, 0.125, 0, 0);
-    -fx-background-size: cover, auto;
+    -fx-background-repeat: repeat repeat;
+    -fx-background-size: 410 410;
 }
 
 #log {
     -fx-effect: innershadow(gaussian, #030303, 5, 0.125, 0, 0);
-    -fx-background-image: url("graphpaper.png");
-    -fx-background-size: cover, auto;
+    -fx-background-image: url("graphpaper.jpg");
+    -fx-background-repeat: repeat repeat;
+    -fx-background-size: 200 163;
+    -fx-text-fill: #303030;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
 }
 
 .text-area {
