@@ -44,7 +44,7 @@ object BattleShipProtocol {
     val fleet = Fleet(g.getVesselList.asScala.map(convert).toSet)
     val battleField = BattleField(g.getWidth, g.getHeight, fleet)
     val alreadyClicked = g.getAlreadyClickedList.asScala.map(convert).toList
-    val game = BattleShipGame(battleField, (e => e.toDouble), (e => e.toDouble), (e => println(e)))
+    val game = BattleShipGame(battleField, e => e.toDouble, e => e.toDouble, e => println(e), e => println(e))
     game.clickedPos = alreadyClicked
     game
   }

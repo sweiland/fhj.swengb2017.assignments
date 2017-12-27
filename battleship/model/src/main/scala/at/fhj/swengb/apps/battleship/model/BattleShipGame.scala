@@ -6,6 +6,7 @@ package at.fhj.swengb.apps.battleship.model
 case class BattleShipGame(battleField: BattleField,
                           getCellWidth: Int => Double,
                           getCellHeight: Int => Double,
+                          upSlider: Int => Unit,
                           log: String => Unit) {
 
   /**
@@ -34,7 +35,10 @@ case class BattleShipGame(battleField: BattleField,
   var sunkShips: Set[Vessel] = Set()
   var clickedPos: Seq[BattlePos] = Seq()
 
-  def updateClickedPos(pos: BattlePos): Unit = clickedPos = pos +: clickedPos
+  def updateClickedPos(pos: BattlePos): Unit = {
+    clickedPos = pos +: clickedPos
+    upSlider(clickedPos.size)
+  }
 
   def getCells(): Seq[BattleFxCell] = cells
 

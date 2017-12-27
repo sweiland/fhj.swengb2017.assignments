@@ -28,6 +28,7 @@ class BattleShipFxApp extends Application {
         stage.setScene(new Scene(root))
         stage.setTitle("Some crazy battles are going on")
         setSkin(stage, fxml, css)
+        stage.setResizable(false)
         stage.show()
       case Failure(e) => e.printStackTrace()
     }

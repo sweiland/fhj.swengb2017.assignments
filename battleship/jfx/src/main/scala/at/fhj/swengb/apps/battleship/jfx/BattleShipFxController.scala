@@ -25,25 +25,6 @@ class BattleShipFxController extends Initializable {
 
   @FXML def newGame(): Unit = initGame()
 
-  @FXML def slidermovement(): Unit = {
-    println(slider.getValue)
-  }
-
-  @FXML def loadGame(): Unit = {
-    val inFile = at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.parseFrom(Files.newInputStream(Paths.get("./battleship.bin")))
-    val loadGame: BattleShipGame = BattleShipProtocol.convert(inFile)
-    val loadedGame = BattleShipGame(loadGame.battleField, getCellWidth, getCellHeight, appendLog)
-    init(loadedGame)
-    loadedGame.simulateClicks(loadGame.clickedPos)
-  }
-
-  @FXML def saveGame(): Unit = {
-    BattleShipProtocol.convert(g).writeTo(Files.newOutputStream(Paths.get("./battleship.bin")))
-    println("Saved to" + Paths.get("./battleship.bin"))
-  }
-
-  override def initialize(url: URL, rb: ResourceBundle): Unit = initGame()
-
   private def initGame(): Unit = {
     val game: BattleShipGame = createGame()
     init(game)
@@ -68,12 +49,12 @@ class BattleShipFxController extends Initializable {
     game.getCells().foreach(c => c.init())
   }
 
-  private def createGame(): BattleShipGame = {
-    val field = BattleField(10, 10, Fleet(FleetConfig.Standard))
-
-    val battleField: BattleField = BattleField.placeRandomly(field)
-
-    BattleShipGame(battleField, getCellWidth, getCellHeight, appendLog)
+  @FXML def slidermovement(): Unit = {
+    val inFile = at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.parseFrom(Files.newInputStream(Paths.get("./battleship.bin")))
+    val loadGame: BattleShipGame = BattleShipProtocol.convert(inFile)
+    val sliderVal: Int = slider.getValue.toInt
+    val histPos: Seq[BattlePos] = loadGame.clickedPos.takeRight(sliderVal)
+    loadGame.simulateClicks(histPos)
   }
 
   def appendLog(message: String): Unit = log.appendText(message + "\n")
@@ -82,4 +63,31 @@ class BattleShipFxController extends Initializable {
 
   private def getCellWidth(x: Int): Double = battleGroundGridPane.getColumnConstraints.get(x).getPrefWidth
 
+  @FXML def loadGame(): Unit = {
+    val inFile = at.fhj.swengb.apps.battleship.BattleShipProtobuf.BattleShipGame.parseFrom(Files.newInputStream(Paths.get("./battleship.bin")))
+    val loadGame: BattleShipGame = BattleShipProtocol.convert(inFile)
+    val loadedGame = BattleShipGame(loadGame.battleField, getCellWidth, getCellHeight, upSlider, appendLog)
+    init(loadedGame)
+    loadedGame.simulateClicks(loadGame.clickedPos)
+  }
+
+  def upSlider(max: Int): Unit = {
+    slider.setMax(max)
+    slider.setValue(max)
+  }
+
+  @FXML def saveGame(): Unit = {
+    BattleShipProtocol.convert(g).writeTo(Files.newOutputStream(Paths.get("./battleship.bin")))
+    println("Saved to" + Paths.get("./battleship.bin"))
+  }
+
+  override def initialize(url: URL, rb: ResourceBundle): Unit = initGame()
+
+  private def createGame(): BattleShipGame = {
+    val field = BattleField(10, 10, Fleet(FleetConfig.Standard))
+
+    val battleField: BattleField = BattleField.placeRandomly(field)
+
+    BattleShipGame(battleField, getCellWidth, getCellHeight, upSlider, appendLog)
+  }
 }

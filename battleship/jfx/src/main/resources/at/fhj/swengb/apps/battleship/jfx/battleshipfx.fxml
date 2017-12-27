@@ -20,12 +20,9 @@
     </top>
     <right>
         <VBox prefHeight="392.0" prefWidth="138.0" BorderPane.alignment="CENTER">
-            <Button id="button" onAction="#newGame" prefHeight="38.0" prefWidth="138.0"
-                    text="New Game"/>
-            <Button id="button" onAction="#loadGame" prefHeight="38.0" prefWidth="138.0"
-                    text="Load Game"/>
-            <Button id="button" onAction="#saveGame" prefHeight="38.0" prefWidth="138.0"
-                    text="Save Game"/>
+            <Button id="button" onAction="#newGame" prefHeight="38.0" prefWidth="138.0" text="New Game"/>
+            <Button id="button" onAction="#loadGame" prefHeight="38.0" prefWidth="138.0" text="Load Game"/>
+            <Button id="button" onAction="#saveGame" prefHeight="38.0" prefWidth="138.0" text="Save Game"/>
         </VBox>
     </right>
     <center>
@@ -61,7 +58,8 @@
                   BorderPane.alignment="CENTER"/>
     </left>
     <bottom>
-        <Slider fx:id="slider" minorTickCount="5" onMouseClicked="#slidermovement" prefHeight="69.0" prefWidth="752.0"
-                showTickLabels="true" showTickMarks="true" snapToTicks="true" BorderPane.alignment="CENTER"/>
+        <Slider fx:id="slider" majorTickUnit="1.0" minorTickCount="1" onMouseClicked="#slidermovement" prefHeight="69.0"
+                prefWidth="752.0" showTickLabels="true" showTickMarks="true" snapToTicks="true"
+                BorderPane.alignment="CENTER"/>
     </bottom>
 </BorderPane>
