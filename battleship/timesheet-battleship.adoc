@@ -27,4 +27,10 @@
 | 4
 | design changes, think about the slider
 
+| qerimiar16 & weilands16
+| 27.12.2017
+| 8
+| a
+| work on slider
+
 |===
