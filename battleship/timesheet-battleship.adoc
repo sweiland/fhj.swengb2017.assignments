@@ -30,7 +30,13 @@
 | qerimiar16 & weilands16
 | 27.12.2017
 | 8
-| a
+| 4
 | work on slider
+
+| qerimiar16 & weilands16
+| 28.12.2017
+| 6
+| v
+| more work on slider
 
 |===
