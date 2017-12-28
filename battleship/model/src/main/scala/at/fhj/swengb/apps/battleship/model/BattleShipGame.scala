@@ -33,18 +33,20 @@ case class BattleShipGame(battleField: BattleField,
     * contains all vessels which are destroyed
     */
   var sunkShips: Set[Vessel] = Set()
-  var clickedPos: Seq[BattlePos] = Seq()
+  var clickedPos: List[BattlePos] = List()
 
   def updateClickedPos(pos: BattlePos): Unit = {
-    clickedPos = pos +: clickedPos
+    clickedPos = pos :: clickedPos
     upSlider(clickedPos.size)
   }
 
   def getCells(): Seq[BattleFxCell] = cells
 
-  def simulateClicks(pos: Seq[BattlePos]): Unit = {
-    val toClick: Seq[BattleFxCell] = cells.filter(c => pos.contains(c.pos))
-    toClick.map(e => e.clickMouse())
+  def simulateClicks(pos: List[BattlePos]): Unit = {
+    for (p <- pos) {
+      val cell: BattleFxCell = cells.filter(e => e.pos.equals(p)).head
+      cell.clickMouse()
+    }
 
   }
 

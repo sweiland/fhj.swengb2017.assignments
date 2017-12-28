@@ -58,7 +58,7 @@
                   BorderPane.alignment="CENTER"/>
     </left>
     <bottom>
-        <Slider fx:id="slider" majorTickUnit="1.0" minorTickCount="1" onMouseClicked="#slidermovement" prefHeight="69.0"
+        <Slider fx:id="slider" majorTickUnit="1.0" minorTickCount="0" onMouseClicked="#slidermovement" prefHeight="69.0"
                 prefWidth="752.0" showTickLabels="true" showTickMarks="true" snapToTicks="true"
                 BorderPane.alignment="CENTER"/>
     </bottom>

@@ -43,7 +43,7 @@ object BattleShipProtocol {
   def convert(g: BattleShipProtobuf.BattleShipGame): BattleShipGame = {
     val fleet = Fleet(g.getVesselList.asScala.map(convert).toSet)
     val battleField = BattleField(g.getWidth, g.getHeight, fleet)
-    val alreadyClicked = g.getAlreadyClickedList.asScala.map(convert).toList
+    val alreadyClicked: List[BattlePos] = g.getAlreadyClickedList.asScala.map(convert).toList
     val game = BattleShipGame(battleField, e => e.toDouble, e => e.toDouble, e => println(e), e => println(e))
     game.clickedPos = alreadyClicked
     game
