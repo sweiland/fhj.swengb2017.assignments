@@ -37,6 +37,6 @@
 | 28.12.2017
 | 6
 | v
-| more work on slider
+| more work on slider (unsuccessful) AND finally start work on test generator
 
 |===
