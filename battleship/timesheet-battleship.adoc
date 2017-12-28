@@ -15,7 +15,7 @@
 | 1
 | Setting everything up (protoc etc)
 
-| qerimirar16 & weilands16
+| qerimiar16 & weilands16
 | 17.12.2017
 | 7
 | 12.5
@@ -36,7 +36,7 @@
 | qerimiar16 & weilands16
 | 28.12.2017
 | 6
-| v
-| more work on slider (unsuccessful) AND finally start work on test generator
+| 6
+| more work on slider (unsuccessful) AND finally implement tests for the conversion
 
 |===
